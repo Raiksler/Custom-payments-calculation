@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('tnved/', include('tnved.urls'))
+    path('tnved/', include('tnved.urls')),
+    path('calculate/', include('tax_calculation.urls')),
 ]

@@ -15,8 +15,8 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import tnved_info
+from .views import tnved_tax
 
 urlpatterns = [
-    path('', tnved_info),
+    path('', tnved_tax),
 ]
