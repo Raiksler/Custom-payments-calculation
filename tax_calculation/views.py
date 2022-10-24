@@ -3,7 +3,7 @@ from django.shortcuts import render
 import re
 from tax_calculation.models import CustomTariff
 
-# Create your views here.
+
 
 class Ett_handler:
     def __init__(self, request):
@@ -28,19 +28,19 @@ class Ett_handler:
             self.tax_type = 'combine'
         return self.tax_type
 
-    def get_specific_label(self):
+    def get_specific_label(self): # Получение единицы измерения из специфической ставки.
         return re.search(r'(?<=\/).*', self.tax).group(0)
     
-    def get_specific_tax(self):
+    def get_specific_tax(self): # Получение количественных данных из специфической ставки.
         return re.search(r'.{1,}\d', self.tax).group(0)
 
-    def get_specific_valute(self):
+    def get_specific_valute(self): # Получение типа валюты из специфической ставки.
         if 'евро' in self.tax:
             return 'евро'
         else:
             return 'долл'
 
-    def get_cource(self, valute):
+    def get_cource(self, valute): # Получение текущего курса валюты.
         if valute == 'долл':
             cource = requests.get('https://api.coingate.com/v2/rates/merchant/USD/RUB').json()
             return cource
@@ -48,7 +48,7 @@ class Ett_handler:
             cource = requests.get('https://api.coingate.com/v2/rates/merchant/EUR/RUB').json()
             return cource
 
-    def calculate_tax(self, specific_metric=None):
+    def calculate_tax(self, specific_metric=None): # Непосредственный рассчет таможенной пошлины, в зависимости от ее типа.
         tax_type = self.tax_type_checker()
         if tax_type == 'advalore':
             if self.tax != '0':
