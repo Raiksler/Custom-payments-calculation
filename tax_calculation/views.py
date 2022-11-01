@@ -8,6 +8,7 @@ from tax_calculation.models import CustomTariff
 class Ett_handler:
     def __init__(self, request):
         self.code = request.POST.get('code')
+        self.code = self.code.replace(' ', '')
         self.specific_metric = request.POST.get('specific_metric')
         self.specific_label = request.POST.get('specific_label')
         self.valute = request.POST.get('valute')
