@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tax_calculation',
-    'tnved'
+    'tnved',
+    'nds'
 ]
 
 MIDDLEWARE = [

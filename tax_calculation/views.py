@@ -97,7 +97,7 @@ class Ett_handler:
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'tax_calculation/index.html')
 
 def calculate_tax(request):
     handler = Ett_handler(request)
@@ -107,22 +107,22 @@ def calculate_tax(request):
     #Проверка на достаточность данных для рассчета по адвалорной формуле. Если данных недостаточно, запрашиваем дополнительные, если достаточно, производим рассчет.
     if tax_type == 'advalore':
         if parameters['price'] == '':
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
         else:
             calculated_tax = handler.calculate_tax()
             parameters['calculated_tax'] = calculated_tax
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
     #Проверка на достаточность данных для рассчета по специфической формуле. Если данных недостаточно, запрашиваем дополнительные если достаточно, производим рассчет.
     elif tax_type == 'specific':
         if parameters['specific_metric'] == '':
             parameters['specific_label'] = handler.get_label()
             parameters['valute'] = handler.get_valute()
             parameters['cource'] = handler.get_cource(valute=parameters['valute'])
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
         else:
             calculated_tax = handler.calculate_tax(parameters['specific_metric'])
             parameters['calculated_tax'] = calculated_tax
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
     #Проверка на достаточность данных для рассчета по комбинированной формуле. Если данных недостаточно, запрашиваем дополнительные если достаточно, производим рассчет.
     elif tax_type == 'combine':
         combine_type = handler.get_combine_type()
@@ -131,9 +131,9 @@ def calculate_tax(request):
             parameters['valute'] = handler.get_valute()
             parameters['cource'] = handler.get_cource(valute=parameters['valute'])
             parameters['combine_type'] = combine_type
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
         else:
             calculated_tax = handler.calculate_tax(specific_metric=parameters['specific_metric'], combine_type=combine_type)
             parameters['calculated_tax'] = calculated_tax['result']
             parameters['combine_formula_type'] = calculated_tax['formula_type']
-            return render(request, 'result.html', context=parameters)
+            return render(request, 'tax_calculation/result.html', context=parameters)
