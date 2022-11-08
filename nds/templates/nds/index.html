@@ -5,6 +5,15 @@
   <title>Рассчет НДС</title>
  </head>
  <body>
-   Плейсхолдер рассчета НДС.
+
+
+ <form action="/nds/result/", method="POST">
+
+{% csrf_token %}
+
+  <p><b>Для получения данных по ставкам НДС, введите код товара по ТН ВЭД:</b></p>
+  <p><input type="text" required name="code"></p>
+  <p><input type="submit"></p>
+ </form>
  </body>
 </html>

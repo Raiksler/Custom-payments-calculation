@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from cpc.views import index
 
 urlpatterns = [
+    path('', index),
     path('admin/', admin.site.urls),
     path('tnved/', include('tnved.urls')),
-    path('calculate/', include('tax_calculation.urls')),
+    path('customtax/', include('tax_calculation.urls')),
     path('nds/', include('nds.urls'))
 ]
